@@ -1,5 +1,9 @@
 import random
+import os
 
+
+def limpiar_pantalla():
+    os.system("cls")
 
 def read():
     words = []
@@ -7,24 +11,47 @@ def read():
         for line in f:
             words.append(line.strip().upper())
     palabra_aleatoria = random.choice(words)
-    print(palabra_aleatoria)    
     return palabra_aleatoria
 
-def cambio_de_palabra(palabra_aleatoria):
-    print(palabra_aleatoria)
+def palabra_guiones(palabra_aleatoria):
     letras = []
     for i in palabra_aleatoria:
         letras.append(i)
-    print(letras)
-    for i in letras:
-        letra_user = input("Escriba una letra")
-        if letra_user == i:
-            print("si existe")
+    longitud = len(palabra_aleatoria)
+    palabra_guion = []
+    for i in range (longitud):
+        palabra_guion.append("_")
+    juego_terminado = False
+    intentos = 10
+    
+    while(juego_terminado == False):
+        letra = input("digite una letra: ")
+        adivine_alguna = False
+    
+        for i in range (longitud):
+            if (letras[i] == letra):
+                palabra_guion[i] = letra
+                adivine_alguna = True
+                if(palabra_guion == letras):
+                    print("Felicitaciones ganaste")
+                    juego_terminado = True
+        print(palabra_guion)
 
+        if adivine_alguna == False:
+            print("no adivinaste ninguna letra")
+            intentos = intentos - 1 
+            print("Te quedan " + str(intentos) + " intentos")
+            limpiar_pantalla()
+            if intentos == 0:
+                print("Lo siento no lograste adivinar la letra ':(' ")
+                juego_terminado = True
 
+        
 
 def run():
-    cambio_de_palabra(read())
+    limpiar_pantalla()
+    palabra_guiones(read())
+
 
 if __name__ == "__main__":
     run()
