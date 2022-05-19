@@ -17,18 +17,16 @@ def palabra_guiones(palabra_aleatoria):
     letras = []
     for i in palabra_aleatoria:
         letras.append(i)
-    longitud = len(palabra_aleatoria)
-    palabra_guion = []
-    for i in range (longitud):
-        palabra_guion.append("_")
+    palabra_guion = ["_"] * len(palabra_aleatoria)
     juego_terminado = False
     intentos = 10
     
     while(juego_terminado == False):
-        letra = input("digite una letra: ")
+        letra = input("digite una letra: ").strip().upper()
+        assert letra.isalpha()
         adivine_alguna = False
     
-        for i in range (longitud):
+        for i in range (len(palabra_aleatoria)):
             if (letras[i] == letra):
                 palabra_guion[i] = letra
                 adivine_alguna = True
@@ -47,7 +45,6 @@ def palabra_guiones(palabra_aleatoria):
                 juego_terminado = True
 
         
-
 def run():
     limpiar_pantalla()
     palabra_guiones(read())
